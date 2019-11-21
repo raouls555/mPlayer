@@ -40,8 +40,8 @@ Ball.prototype.updateType2 = function(){
 }
 
 Ball.prototype.borders = function(){
-    this.pos.y = this.c.height - this.rad;
     if(this.pos.y >= this.c.height - this.rad){
+        this.pos.y = this.c.height - this.rad;
         this.dir.y = -this.dir.y;
     } else if(this.pos.y <= this.rad){
         this.pos.y = this.rad;
