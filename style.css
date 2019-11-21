@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:130,400');
+
+*,h1,h2,h3,span,button {
+    font-family: 'Roboto', sans-serif;
+}
+
+button {
+    font-size: 1.3em;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: #000;
+}
+
+#slider {
+    width: 100vw;
+    position: absolute;
+    bottom: 0;
+    background: #111;
+    z-index: 1;
+}
+
+#dur {
+    background: crimson;
+    width: 0px;
+    height: 13px;
+}
+
+button {
+    color: white;
+    background-color: transparent;
+    border: 0px;
+}
+
+button:focus {
+    outline: 0;
+}
+
+#container {
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: calc(100vh - 13px);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+#gui {
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#currentSong {
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    right: 10px;
+    font-size: 1.5em;
+    font-weight: 130;
+    text-align: right;
+    color: white;
+}
+
+#pItems {
+    overflow: auto;
+    padding: 3px;
+    max-height: 50vh;
+    font-size: 1.1em;
+    color: white;
+}
+
+#pItems::-webkit-scrollbar {
+    width: 5px;
+}
+
+#pItems::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#pItems::-webkit-scrollbar-thumb {
+    background: white;
+}
+
+.pItem {
+    margin: 4px;
+    font-size: 1.3em;
+}
+
+.selected {
+    text-decoration: underline;
+}
+
+#remainingGUI {
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.hide #container, .hide #remainingGUI, .hide #currentSong, .hide #sliderCon{
+    display: none;
+}
