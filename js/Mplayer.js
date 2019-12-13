@@ -76,9 +76,13 @@ class Mplayer{
     }
 
     updateSrc(){
-        this.m.src = URL.createObjectURL(this.files[this.current].file);
-        currentSong.innerText = removeExtention(this.files[this.current].file.name);
-        document.title = currentSong.innerText;
+        if(!this.files[this.current].file.type.includes('audio')){
+            console.log('ge');
+        } else {
+            this.m.src = URL.createObjectURL(this.files[this.current].file);
+            currentSong.innerText = removeExtention(this.files[this.current].file.name);
+            document.title = currentSong.innerText;
+        }
     }
 
     draw(){

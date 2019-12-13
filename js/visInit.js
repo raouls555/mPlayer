@@ -1,6 +1,7 @@
 let vis;
 
 function visInit(){
+    if(vis) return;
     let context = new AudioContext();
     let sauce = context.createMediaElementSource(music.m);
     vis = new CanvasMusicVis(context,sauce,document.querySelector('canvas'),13);

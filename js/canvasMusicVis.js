@@ -72,7 +72,7 @@ class CanvasMusicVis {
 let time = 0;
 const styleArray = [
     function (thi){
-        thi.ctx.fillStyle = '#00000033';
+        thi.ctx.fillStyle = bgCol[thi.col] + '33';
         thi.ctx.fillRect(0, 0, thi.canvas.width, thi.canvas.height);
         for (let i = 0; i < thi.dataArray.length; i++) {
             let h = 360 * thi.dataArray[i].map(0, 255, 0, 1);
@@ -84,7 +84,7 @@ const styleArray = [
         }
     },
     function (thi){
-        thi.ctx.fillStyle = '#00000033';
+        thi.ctx.fillStyle = bgCol[thi.col] + '33';
         thi.ctx.fillRect(0, 0, thi.canvas.width, thi.canvas.height);
         for (let i = 0; i < thi.dataArray.length; i++) {
             let h = 360 * thi.dataArray[i].map(0, 255, 0, 1);
@@ -96,7 +96,7 @@ const styleArray = [
         }
     },
     function (thi){
-        thi.ctx.fillStyle = '#00000033';
+        thi.ctx.fillStyle = bgCol[thi.col] + '33';
         thi.ctx.fillRect(0, 0, thi.canvas.width, thi.canvas.height);
         for (let i = 0; i < thi.dataArray.length; i++) {
             let h = 360 * thi.dataArray[i].map(0, 255, 0, 1);
@@ -109,7 +109,7 @@ const styleArray = [
     },
     function (thi) {
         thi.dataF = thi.dataArray.filter((el) => el > 0);
-        thi.ctx.fillStyle = '#000';
+        thi.ctx.fillStyle = bgCol[thi.col];
         thi.ctx.fillRect(0, 0, thi.canvas.width, thi.canvas.height);
         thi.ctx.save();
         thi.ctx.translate(window.innerWidth / 2, window.innerHeight / 2);
@@ -125,7 +125,7 @@ const styleArray = [
     },
     function (thi) {
         thi.dataF = thi.dataArray.filter((el) => el > 0);
-        thi.ctx.fillStyle = '#00000011';
+        thi.ctx.fillStyle = bgCol[thi.col] + '11';
         thi.ctx.fillRect(0, 0, thi.canvas.width, thi.canvas.height);
         thi.ctx.strokeStyle = colors[thi.col](time,0);
         const width = thi.canvas.width / thi.dataF.length;
@@ -140,7 +140,7 @@ const styleArray = [
         let map = thi.ctx.getImageData(0, 0, thi.canvas.width, thi.canvas.height);
         thi.ctx.putImageData(map, -10, -10);
         thi.dataF = thi.dataArray;
-        thi.ctx.fillStyle = '#00000011';
+        thi.ctx.fillStyle = bgCol[thi.col] + '11';
         thi.ctx.fillRect(0, 0, thi.canvas.width, thi.canvas.height);
         const width = thi.canvas.width / thi.dataF.length;
         for (let i = 0; i < thi.dataF.length; i++) {
@@ -152,19 +152,19 @@ const styleArray = [
         }
     },
     function (thi) {
-        thi.ctx.fillStyle = '#000';
-        thi.ctx.clearRect(0, 0, thi.canvas.width, thi.canvas.height);
+        thi.ctx.fillStyle = bgCol[thi.col];
+        thi.ctx.fillRect(0, 0, thi.canvas.width, thi.canvas.height);
         const circleSize = thi.canvas.height / 3 + 10;
         for (let i = 0; i < thi.dataArray.length - 5; i++) {
             let h = 360 * thi.dataArray[i].map(0, 255, 0, 1);
-            thi.ctx.fillStyle = colors[thi.col](h,i,0.3);
+            thi.ctx.fillStyle = colors[thi.col](h,i,0.15);
             let rad = thi.dataArray[i].map(0, 250, 0, thi.canvas.height / 3);
             thi.ctx.beginPath();
             thi.ctx.arc(circleSize,circleSize,rad, rad, 0, 2 * Math.PI);
             thi.ctx.fill();
         }
         let imgData = thi.ctx.getImageData(0, 0, circleSize * 2, circleSize * 2);
-        thi.ctx.fillStyle = '#000';
+        thi.ctx.fillStyle = bgCol[thi.col];
         thi.ctx.fillRect(0, 0, thi.canvas.width, thi.canvas.height);
         thi.ctx.putImageData(imgData, -circleSize,-circleSize);
         thi.ctx.putImageData(imgData, thi.canvas.width - circleSize,-circleSize);
@@ -173,7 +173,7 @@ const styleArray = [
     },
     function (thi) {
         thi.dataF = thi.dataArray.filter((el) => el > 0);
-        thi.ctx.fillStyle = '#000';
+        thi.ctx.fillStyle = bgCol[thi.col];
         thi.ctx.fillRect(0, 0, thi.canvas.width, thi.canvas.height);
         thi.ctx.save();
         thi.ctx.translate(window.innerWidth / 2, window.innerHeight / 2);
@@ -195,11 +195,20 @@ const styleArray = [
             // thi.ctx.fillStyle = `hsl(327.6,100%,${h + 40}%)`;
 
 const colors = [
+    (h,i,a) => `#d3d3d3` + Number(a ? Math.round(a*255) : 255).toString(16),
+    (h,i,a) => `#8a2be2` + Number(a ? Math.round(a*255) : 255).toString(16),
     (h,i,a) => `hsla(${h},100%,50%,${a||1})`,
     (h,i,a) => `hsla(9,100%,${h.map(0,360,0,50) + 40}%,${a||1})`,
     (h,i,a) => `hsla(${i.map(0,256,0,200)},100%,50%,${a||1})`,
-    (h,i,a) => `hsla(${music.m.currentTime.map(0,music.m.duration,0,360)},100%,50%,${a||1})`
 ];
+
+const bgCol = [
+    '#8a2be2',
+    '#d3d3d3',
+    '#000000',
+    '#000000',
+    '#000000'
+]
 
 //
 
