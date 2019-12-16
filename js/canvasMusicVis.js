@@ -39,7 +39,8 @@ class CanvasMusicVis {
         } else {
             this.style = s;
         }
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.fillStyle = bgCol[this.col];
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
     get activeStyle(){
@@ -54,7 +55,8 @@ class CanvasMusicVis {
         } else {
             this.col = c;
         }
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.fillStyle = bgCol[this.col];
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
     get activeColor(){
@@ -171,6 +173,18 @@ const styleArray = [
         thi.ctx.putImageData(imgData, thi.canvas.width - circleSize,thi.canvas.height - circleSize);
         thi.ctx.putImageData(imgData, -circleSize,thi.canvas.height - circleSize);
     },
+    function (thi){
+        thi.ctx.fillStyle = bgCol[thi.col] + '01';
+        thi.ctx.fillRect(0, 0, thi.canvas.width, thi.canvas.height);
+        for (let i = 0; i < thi.dataArray.length; i++) {
+            let h = 360 * thi.dataArray[i].map(0, 255, 0, 1);
+            thi.ctx.fillStyle = colors[thi.col](h,i);
+            thi.balls[i].vel.magnitude = thi.dataArray[i].map(0, 255, 0, 10);
+            thi.balls[i].rad = thi.dataArray[i].map(0, 255, 0, 10);
+            thi.balls[i].updateType3();
+            thi.balls[i].draw();
+        }
+    },
     function (thi) {
         thi.dataF = thi.dataArray.filter((el) => el > 0);
         thi.ctx.fillStyle = bgCol[thi.col];
@@ -195,19 +209,21 @@ const styleArray = [
             // thi.ctx.fillStyle = `hsl(327.6,100%,${h + 40}%)`;
 
 const colors = [
-    (h,i,a) => `#d3d3d3` + Number(a ? Math.round(a*255) : 255).toString(16),
-    (h,i,a) => `#8a2be2` + Number(a ? Math.round(a*255) : 255).toString(16),
     (h,i,a) => `hsla(${h},100%,50%,${a||1})`,
     (h,i,a) => `hsla(9,100%,${h.map(0,360,0,50) + 40}%,${a||1})`,
     (h,i,a) => `hsla(${i.map(0,256,0,200)},100%,50%,${a||1})`,
+    (h,i,a) => `#d3d3d3` + Number(a ? Math.round(a*255) : 255).toString(16),
+    (h,i,a) => `#8a2be2` + Number(a ? Math.round(a*255) : 255).toString(16),
+    (h,i,a)=> ['#E70000','#FF8C00','#FFEF00','#00811F','#0044FF','#760089'][i%6],// + Number(a ? Math.round(a*255) : 255).toString(16),
 ];
 
 const bgCol = [
+    '#000000',
+    '#000000',
+    '#000000',
     '#8a2be2',
     '#d3d3d3',
-    '#000000',
-    '#000000',
-    '#000000'
+    '#ffffff',
 ]
 
 //
