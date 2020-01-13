@@ -29,6 +29,8 @@ class CanvasMusicVis {
     updateSize(){
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight - this.offset;
+        this.ctx.fillStyle = bgCol[this.col];
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
     set activeStyle(s){
