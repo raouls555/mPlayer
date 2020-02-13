@@ -1,46 +1,36 @@
-class Vector{
-    constructor(x,y) {
-        if(x instanceof Vector){
-            this.x = x.x;
-            this.y = x.y;
-        } else {
-            this.x = x || 0;
-            this.y = y || 0;
-        }
-    }
-
-    add(x,y){
+const Vector = {
+    add: function(x,y){
         if(typeof x === "number" && typeof y === "number"){
             this.x += x;
             this.y += y;
-        }else if(x instanceof Vector){
+        }else if(Vector.isPrototypeOf(x)){
             this.x += x.x;
             this.y += x.y;
         }
         return this;
-    }
-    sub(x,y){
+    },
+    sub: function(x,y){
         if(typeof x === "number" && typeof y === "number"){
             this.x -= x;
             this.y -= y;
-        }else if(x instanceof Vector){
+        }else if(Vector.isPrototypeOf(x)){
             this.x -= x.x;
             this.y -= x.y;
         }
         return this;
-    }
-    mult(x,y){
+    },
+    mult: function(x,y){
         if(typeof x === "number" && typeof y === "number"){
             this.x *= x;
             this.y *= y;
-        }else if(x instanceof Vector){
+        }else if(Vector.isPrototypeOf(x)){
             this.x *= x.x;
             this.y *= x.y;
         }
         return this;
-    }
-    set(x,y){
-        if(x instanceof Vector){
+    },
+    set: function(x,y){
+        if(Vector.isPrototypeOf(x)){
             this.x = x.x;
             this.y = x.y;
         } else {
@@ -48,28 +38,47 @@ class Vector{
             this.y = y || 0;
         }
         return this;
-    }
-    limit(limit){
+    },
+    limit: function(limit){
         if(this.magnitude > limit) this.magnitude = limit;
         return this;
-    }
-    copy(){
-        return new Vector(this);
-    }
+    },
+    copy: function(){
+        return newVector(this);
+    },
     set direction(direction){
         const magnitude = this.magnitude;
         this.x = Math.cos(direction) * magnitude;
         this.y = Math.sin(direction) * magnitude;
-    }
+    },
     get direction(){
         return Math.atan2(this.y, this.x);
-    }
+    },
     set magnitude(magnitude){
         const direction = this.direction; 
         this.x = Math.cos(direction) * magnitude;
         this.y = Math.sin(direction) * magnitude;
-    }
+    },
     get magnitude(){
         return Math.sqrt(this.x * this.x + this.y * this.y);
     }
 }
+
+function newVector(x,y){
+    const vector = Object.create(Vector);
+    if(Vector.isPrototypeOf(x)){
+        vector.x = x.x;
+        vector.y = x.y;
+    } else {
+        vector.x = x || 0;
+        vector.y = y || 0;
+    }
+
+    return vector;
+}
+
+function degtoRad(deg){
+    return deg * 0.0174532925;
+}
+
+export {newVector,degtoRad};

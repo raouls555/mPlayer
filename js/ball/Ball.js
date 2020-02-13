@@ -1,14 +1,17 @@
+import { newVector } from "./vec.js";
+import {map} from "../prototypes.js";
+
 function Ball(c,ctx,rad){
     this.ctx = ctx;
     this.c = c;
     this.rad = rad;
-    this.pos = new Vector(Math.floor(Math.random() * this.c.width),Math.floor(Math.random() * this.c.height));
-    this.vel = new Vector();
+    this.pos = newVector(Math.floor(Math.random() * this.c.width),Math.floor(Math.random() * this.c.height));
+    this.vel = newVector();
 
-    this.dir = new Vector(1,0);
+    this.dir = newVector(1,0);
     this.dir.direction = Math.random() * 360;
 
-    this.friction = new Vector();
+    this.friction = newVector();
 }
 
 Ball.prototype.draw = function(){
@@ -26,7 +29,7 @@ Ball.prototype.updateType1 = function(){
 Ball.prototype.updateType3 = function(){
     this.vel.direction = this.dir.direction;
     this.pos.add(this.vel);
-    this.dir.direction = this.dir.direction + this.vel.magnitude.map(0,5,-0.5,0.05);
+    this.dir.direction = this.dir.direction + map(this.vel.magnitude,0,5,-0.5,0.05);
     this.borders();
 }
 
@@ -55,3 +58,5 @@ Ball.prototype.borders = function(){
         this.dir.x = -this.dir.x;
     }
 }
+
+export {Ball}

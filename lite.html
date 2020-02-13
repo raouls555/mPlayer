@@ -8,21 +8,21 @@
     <div id="container">
         <div id="gui">
             <div>
-                <button onclick="uploadClick()">upload</button>
-                <button onclick="music.shuffle()">shuffle</button>
-                <button onclick="music.remove()">remove</button>
+                <button id="upload_btn">upload</button>
+                <button id="shuffle_btn">shuffle</button>
+                <button id="remove_btn">remove</button>
             </div>
             <div>
-                <button onclick="music.currentFile--">back</button>
-                <button id="b" onclick="playClick(this)">stop</button>
-                <button onclick="music.currentFile++">forward</button>
+                <button id="back_btn">back</button>
+                <button id="play_btn">stop</button>
+                <button id="forw_btn">forward</button>
             </div>
         </div>
     </div>
     <div id="remainingGUI">
-        <button id="showPlaylistBtn" onclick="showPlaylist()">playlist</button>
+        <button id="showPlaylist_btn">playlist</button>
         <div style="display: none;" id="playlist">
-            <button id="hidePlaylistBtn" onclick="hidePlaylist()">close</button>
+            <button id="hidePlaylist_btn">close</button>
             <div id="pItems">
 
             </div>
@@ -30,8 +30,6 @@
     </div>
     <span id="currentSong"></span>
     <div id="sliderCon"></div>
-    <script src="js/prototypes.js"></script>
-    <script src="js/Mplayer.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/lite.js" type='module'></script>
 </body>
 </html>
