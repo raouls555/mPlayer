@@ -7,7 +7,6 @@ document.addEventListener('keydown',function(e){
             kDown[e.key](e.key);
         } else {
             for (let i = kFunctions.length - 1; 0 <= i; i--){
-                console.log(kFunctions[i],i);
                 if(kFunctions[i].function(e.key)) kFunctions[i].kDown(e.key);
             }
         }

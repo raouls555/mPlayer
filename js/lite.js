@@ -1,5 +1,6 @@
 import {Mplayer} from './Mplayer.js';
 import {addButtonInput} from './inputs.js';
+import { keydown } from './keys.js';
 
 const currentSong = document.getElementById("currentSong");
 
@@ -19,17 +20,11 @@ const music = new Mplayer(document.getElementById("sliderCon"),document.getEleme
 window.onresize = function() {
     music.widthCalc();
 };
-window.onkeydown = (e) => e.key !== ' ';
-window.addEventListener('keydown',function(e){
-         if(e.key === ' ') playClick(playButton);
-    else if(e.key === 'ArrowRight') music.currentFile++;
-    else if(e.key === 'ArrowLeft') music.currentFile--;
-    else if(e.key === 'ArrowDown') music.currentFile = music.currentFile;
-    else if(e.key === 's') music.shuffle();
-    else if(e.key === 'h') document.body.classList.toggle('hide');
-    else return false;
-    return false;
-});
+keydown(' ',()=>playClick(playButton));
+keydown('ArrowRight',()=>music.currentFile++);
+keydown('ArrowLeft',()=>music.currentFile--);
+keydown('ArrowDown',()=>music.currentFile = music.currentFile);
+keydown('s',()=>music.shuffle());
 
 function playClick(){
     if(playButton.innerText == "play"){
@@ -54,3 +49,5 @@ function hidePlaylist(){
     showBTN.style.display = "block";
     playlist.style.display = "none";
 }
+
+export{music}
