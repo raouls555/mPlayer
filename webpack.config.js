@@ -1,7 +1,7 @@
 module.exports = {
   mode: 'development',
   entry: {
-    main: './js/main.js',
+    full: './js/main.js',
     lite: './js/lite.js'
   },
   output: {
