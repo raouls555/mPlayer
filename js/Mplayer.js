@@ -1,3 +1,5 @@
+import {setAttributes,map,removeExtention} from './prototypes.js';
+const playButton = document.getElementById("play_btn");
 class Mplayer{
     constructor(sliderCon){
         const root = this;
@@ -10,7 +12,7 @@ class Mplayer{
         durCon.appendChild(this.dur);
         sliderCon.appendChild(durCon);
         this.dur.parentElement.onmousedown = function(e){
-            if(root.files.length !== 0) root.m.currentTime = (e.pageX - this.offsetLeft).map(0,root.width,0,root.m.duration);
+            if(root.files.length !== 0) root.m.currentTime = map(e.pageX - this.offsetLeft,0,root.width,0,root.m.duration);
         }
         requestAnimationFrame(this.draw.bind(root));
 
@@ -24,7 +26,7 @@ class Mplayer{
         this.m.onended = () => this.currentFile++;
 
         this.fileSelector = document.createElement("input");
-        this.fileSelector.setAttributes({"type":"file","multiple":""});
+        setAttributes(this.fileSelector,{"type":"file","multiple":""});
         this.fileSelector.onchange = function(e) {
             for(let i = 0;i < this.files.length;i++){
                 const element = document.createElement("div");
@@ -86,7 +88,7 @@ class Mplayer{
     }
 
     draw(){
-        this.dur.style.width = this.m.currentTime.map(0,this.m.duration,0,this.width) + "px";
+        this.dur.style.width = map(this.m.currentTime,0,this.m.duration,0,this.width) + "px";
         requestAnimationFrame(this.draw.bind(this));
     }
 
@@ -135,3 +137,5 @@ class Mplayer{
         if(!currentCheck) this.current = tempMemory.fileNumb;
     }
 }
+
+export {Mplayer}

@@ -1,3 +1,6 @@
+import {Ball} from './ball/ball.js';
+import {map} from './prototypes.js';
+
 class CanvasMusicVis {
     constructor(context,input, canvas,offset) {
         this.style = 0;
@@ -17,7 +20,7 @@ class CanvasMusicVis {
 
         this.balls = [];
         for (let i = 0; i < this.dataArray.length; i++) {
-            this.balls.push(new Ball(this.canvas,this.ctx,i.map(0,this.dataArray.length,10,1)));
+            this.balls.push(new Ball(this.canvas,this.ctx,map(i,0,this.dataArray.length,10,1)));
         }
         this.gain = this.atx.createGain();
         this.gain.gain.value = 1;
@@ -79,10 +82,10 @@ const styleArray = [
         thi.ctx.fillStyle = bgCol[thi.col] + '33';
         thi.ctx.fillRect(0, 0, thi.canvas.width, thi.canvas.height);
         for (let i = 0; i < thi.dataArray.length; i++) {
-            let h = 360 * thi.dataArray[i].map(0, 255, 0, 1);
+            let h = 360 * map(thi.dataArray[i],0, 255, 0, 1);
             thi.ctx.fillStyle = colors[thi.col](h,i);
-            thi.balls[i].vel.set(0,-thi.dataArray[i].map(0, 255, 0, 10));
-            thi.balls[i].rad = thi.dataArray[i].map(0, 255, 0, 10);
+            thi.balls[i].vel.set(0,-map(thi.dataArray[i],0, 255, 0, 10));
+            thi.balls[i].rad = map(thi.dataArray[i],0, 255, 0, 10);
             thi.balls[i].updateType2();
             thi.balls[i].draw();
         }
@@ -91,10 +94,10 @@ const styleArray = [
         thi.ctx.fillStyle = bgCol[thi.col] + '33';
         thi.ctx.fillRect(0, 0, thi.canvas.width, thi.canvas.height);
         for (let i = 0; i < thi.dataArray.length; i++) {
-            let h = 360 * thi.dataArray[i].map(0, 255, 0, 1);
+            let h = 360 * map(thi.dataArray[i],0, 255, 0, 1);
             thi.ctx.fillStyle = colors[thi.col](h,i);
-            thi.balls[i].vel.magnitude = thi.dataArray[i].map(0, 255, 0, 10);
-            thi.balls[i].rad = thi.dataArray[i].map(0, 255, 0, 10);
+            thi.balls[i].vel.magnitude = map(thi.dataArray[i],0, 255, 0, 10);
+            thi.balls[i].rad = map(thi.dataArray[i],0, 255, 0, 10);
             thi.balls[i].updateType1();
             thi.balls[i].draw();
         }
@@ -103,10 +106,10 @@ const styleArray = [
         thi.ctx.fillStyle = bgCol[thi.col] + '33';
         thi.ctx.fillRect(0, 0, thi.canvas.width, thi.canvas.height);
         for (let i = 0; i < thi.dataArray.length; i++) {
-            let h = 360 * thi.dataArray[i].map(0, 255, 0, 1);
+            let h = 360 * map(thi.dataArray[i],0, 255, 0, 1);
             thi.ctx.fillStyle = colors[thi.col](h,i);
-            thi.balls[i].vel.magnitude = thi.dataArray[i].map(0, 255, 0, 10);
-            thi.balls[i].rad = thi.dataArray[i].map(0, 255, 0, 10);
+            thi.balls[i].vel.magnitude = map(thi.dataArray[i],0, 255, 0, 10);
+            thi.balls[i].rad = map(thi.dataArray[i],0, 255, 0, 10);
             thi.balls[i].updateType3();
             thi.balls[i].draw();
         }
@@ -118,11 +121,11 @@ const styleArray = [
         thi.ctx.save();
         thi.ctx.translate(window.innerWidth / 2, window.innerHeight / 2);
         for (let i = 0; i < thi.dataF.length; i++) {
-            let h = 360 * thi.dataF[i].map(0, 255, 0, 1);
+            let h = 360 * map(thi.dataF[i],0, 255, 0, 1);
             thi.ctx.fillStyle = colors[thi.col](h,i);
             thi.ctx.save();
-            thi.ctx.rotate(i.map(0, thi.dataF.length, 0, Math.PI * 2));
-            thi.ctx.fillRect(-1, 0, 1, thi.dataF[i].map(0, 250, 0, thi.canvas.height / 2 - 36));
+            thi.ctx.rotate(map(i,0, thi.dataF.length, 0, Math.PI * 2));
+            thi.ctx.fillRect(-1, 0, 1, map(thi.dataF[i],0, 250, 0, thi.canvas.height / 2 - 36));
             thi.ctx.restore();
         }
         thi.ctx.restore();
@@ -135,23 +138,23 @@ const styleArray = [
         const width = thi.canvas.width / thi.dataF.length;
         thi.ctx.beginPath();
         for (let i = 0; i < thi.dataF.length - 1; i++) {
-            thi.ctx.lineTo(i * width,thi.dataF[i].map(0, 250, thi.canvas.height,thi.canvas.height / 3 * 1));
+            thi.ctx.lineTo(i * width,map(thi.dataF[i],0, 250, thi.canvas.height,thi.canvas.height / 3 * 1));
         }
-        if(thi.dataF.length !== 0)thi.ctx.lineTo(thi.canvas.width,thi.dataF[thi.dataF.length - 1].map(0, 250, thi.canvas.height,thi.canvas.height / 3 * 1));
+        if(thi.dataF.length !== 0)thi.ctx.lineTo(thi.canvas.width,map(thi.dataF[thi.dataF.length - 1],0, 250, thi.canvas.height,thi.canvas.height / 3 * 1));
         thi.ctx.stroke();
     },
     function (thi) {
-        let map = thi.ctx.getImageData(0, 0, thi.canvas.width, thi.canvas.height);
-        thi.ctx.putImageData(map, -10, -10);
+        let mapp = thi.ctx.getImageData(0, 0, thi.canvas.width, thi.canvas.height);
+        thi.ctx.putImageData(mapp, -10, -10);
         thi.dataF = thi.dataArray;
         thi.ctx.fillStyle = bgCol[thi.col] + '11';
         thi.ctx.fillRect(0, 0, thi.canvas.width, thi.canvas.height);
         const width = thi.canvas.width / thi.dataF.length;
         for (let i = 0; i < thi.dataF.length; i++) {
-            let h = 360 * thi.dataF[i].map(0, 255, 0, 0.8);
+            let h = 360 * map(thi.dataF[i],0, 255, 0, 0.8);
             thi.ctx.fillStyle = colors[thi.col](h,i);
             thi.ctx.save();
-            thi.ctx.fillRect(i * width, thi.canvas.height, width + 1, -thi.dataF[i].map(0, 250, 0, thi.canvas.height / 3 * 2));
+            thi.ctx.fillRect(i * width, thi.canvas.height, width + 1, -map(thi.dataF[i],0, 250, 0, thi.canvas.height / 3 * 2));
             thi.ctx.restore();
         }
     },
@@ -160,9 +163,9 @@ const styleArray = [
         thi.ctx.fillRect(0, 0, thi.canvas.width, thi.canvas.height);
         const circleSize = thi.canvas.height / 3 + 10;
         for (let i = 0; i < thi.dataArray.length - 5; i++) {
-            let h = 360 * thi.dataArray[i].map(0, 255, 0, 1);
+            let h = 360 * map(thi.dataArray[i],0, 255, 0, 1);
             thi.ctx.fillStyle = colors[thi.col](h,i,0.15);
-            let rad = thi.dataArray[i].map(0, 250, 0, thi.canvas.height / 3);
+            let rad = map(thi.dataArray[i],0, 250, 0, thi.canvas.height / 3);
             thi.ctx.beginPath();
             thi.ctx.arc(circleSize,circleSize,rad, rad, 0, 2 * Math.PI);
             thi.ctx.fill();
@@ -179,10 +182,10 @@ const styleArray = [
         thi.ctx.fillStyle = bgCol[thi.col] + '01';
         thi.ctx.fillRect(0, 0, thi.canvas.width, thi.canvas.height);
         for (let i = 0; i < thi.dataArray.length; i++) {
-            let h = 360 * thi.dataArray[i].map(0, 255, 0, 1);
+            let h = 360 * map(thi.dataArray[i],0, 255, 0, 1);
             thi.ctx.fillStyle = colors[thi.col](h,i);
-            thi.balls[i].vel.magnitude = thi.dataArray[i].map(0, 255, 0, 10);
-            thi.balls[i].rad = thi.dataArray[i].map(0, 255, 0, 10);
+            thi.balls[i].vel.magnitude = map(thi.dataArray[i],0, 255, 0, 10);
+            thi.balls[i].rad = map(thi.dataArray[i],0, 255, 0, 10);
             thi.balls[i].updateType3();
             thi.balls[i].draw();
         }
@@ -194,26 +197,26 @@ const styleArray = [
         thi.ctx.save();
         thi.ctx.translate(window.innerWidth / 2, window.innerHeight / 2);
         for (let i = 0; i < thi.dataF.length; i++) {
-            let h = 360 * thi.dataF[i].map(0, 255, 0, 1);
+            let h = 360 * map(thi.dataF[i],0, 255, 0, 1);
             thi.ctx.fillStyle = colors[thi.col](h,i);
             thi.ctx.save();
-            thi.ctx.rotate(i.map(0, thi.dataF.length, 0, Math.PI * 2));
-            let r = thi.dataArray[i].map(0, 255, 0, 10);
+            thi.ctx.rotate(map(i,0, thi.dataF.length, 0, Math.PI * 2));
+            let r = map(thi.dataArray[i],0, 255, 0, 10);
             thi.ctx.beginPath();
-            thi.ctx.ellipse(0,thi.dataF[i].map(0, 250, 0, thi.canvas.height / 2 - 36),r, r, 0, 0, 2 * Math.PI);
+            thi.ctx.ellipse(0,map(thi.dataF[i],0, 250, 0, thi.canvas.height / 2 - 36),r, r, 0, 0, 2 * Math.PI);
             thi.ctx.fill();
             thi.ctx.restore();
         }
         thi.ctx.restore();
     },
 ];
-// let h = 50 * thi.dataF[i].map(0, thi.analyser.fftSize, 0, 0.8);
+// let h = 50 * map(thi.dataF[i],0, thi.analyser.fftSize, 0, 0.8);
             // thi.ctx.fillStyle = `hsl(327.6,100%,${h + 40}%)`;
 
 const colors = [
     (h,i,a) => `hsla(${h},100%,50%,${a||1})`,
-    (h,i,a) => `hsla(9,100%,${h.map(0,360,0,50) + 40}%,${a||1})`,
-    (h,i,a) => `hsla(${i.map(0,256,0,200)},100%,50%,${a||1})`,
+    (h,i,a) => `hsla(9,100%,${map(h,0,360,0,50) + 40}%,${a||1})`,
+    (h,i,a) => `hsla(${map(i,0,256,0,200)},100%,50%,${a||1})`,
     (h,i,a) => `#d3d3d3` + Number(a ? Math.round(a*255) : 255).toString(16),
     (h,i,a) => `#8a2be2` + Number(a ? Math.round(a*255) : 255).toString(16),
     (h,i,a)=> ['#E70000','#FF8C00','#FFEF00','#00811F','#0044FF','#760089'][i%6],// + Number(a ? Math.round(a*255) : 255).toString(16),
@@ -233,3 +236,5 @@ const bgCol = [
 //heeft moeite met スミソアエの子守歌 en トキメキ☆ララバイ Fountain of Dreams [Melee]
 // N's Castle Medley
 // Death Parade OP_ Opening 'Flyers' - BRADIO
+
+export {CanvasMusicVis}

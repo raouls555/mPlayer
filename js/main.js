@@ -1,49 +1,22 @@
-const c = document.getElementById("container");
-const playButton = document.getElementById("b");
-const dur = document.getElementById("dur");
-const currentSong = document.getElementById("currentSong");
+import {Mplayer} from './Mplayer.js';
+import {addButtonInput} from './inputs.js';
+import { CanvasMusicVis } from './canvasMusicVis.js';
+import { keydown } from './keys.js';
+import { map } from './prototypes.js';
+import { music } from './lite.js';
 
-const showBTN = document.getElementById("showPlaylistBtn");
-const playlist = document.getElementById("playlist");
-
-const music = new Mplayer(document.getElementById("sliderCon"),document.getElementById("gui"));
-
-window.onresize = function() {
-    music.widthCalc();
-};
-window.onkeydown = (e) => e.key !== ' ';
-window.addEventListener('keydown',function(e){
-         if(e.key === ' ') playClick(playButton);
-    else if(e.key === 'ArrowRight') music.currentFile++;
-    else if(e.key === 'ArrowLeft') music.currentFile--;
-    else if(e.key === 'ArrowDown') music.currentFile = music.currentFile;
-    else if(e.key === 's') music.shuffle();
-    else if(e.key === 'h') document.body.classList.toggle('hide');
-    else return false;
-
-    return false;
+keydown('h',()=>{
+    document.body.classList.toggle('hide')
+    vis.offset = document.body.classList.contains('hide') ? 0 : 1.8;
+    vis.updateSize();
 });
+keydown('d',()=>vis.activeStyle++);
+keydown('a',()=>vis.activeStyle--);
+keydown('c',()=>vis.activeColor++);
+keydown('z',()=>vis.activeColor--);
+keydown((key)=>parseInt(key) > 0,(key)=>vis.gain.gain.value = map(parseInt(key),0,9,0,1.8));
 
-function playClick(e){
-    if(e.innerText == "play"){
-        music.m.play();
-        e.innerText = "stop";
-    } else{
-        music.m.pause();
-        e.innerText = "play";
-    }
-}
-
-function uploadClick(){
-    music.fileSelector.click();
-}
-
-function showPlaylist(){
-    showBTN.style.display = "none";
-    playlist.style.display = "block";
-}
-
-function hidePlaylist(){
-    showBTN.style.display = "block";
-    playlist.style.display = "none";
-}
+const context = new AudioContext();
+const sauce = context.createMediaElementSource(music.m);
+const vis = new CanvasMusicVis(context,sauce,document.querySelector('canvas'),13);
+vis.draw();
