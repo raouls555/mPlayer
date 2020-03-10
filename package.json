@@ -1,0 +1,19 @@
+{
+  "name": "mplayer",
+  "version": "1.0.0",
+  "description": "its a modular music player",
+  "scripts": {
+    "build": "webpack --mode=production",
+    "dev": "webpack --mode=development --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raouls555/mPlayer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/raouls555/mPlayer/issues"
+  },
+  "homepage": "https://github.com/raouls555/mPlayer#readme"
+}

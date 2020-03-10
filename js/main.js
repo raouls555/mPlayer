@@ -1,9 +1,7 @@
-import {Mplayer} from './Mplayer.js';
-import {addButtonInput} from './inputs.js';
-import { CanvasMusicVis } from './canvasMusicVis.js';
-import { keydown } from './keys.js';
 import { map } from './prototypes.js';
+import { keydown } from './keys.js';
 import { music } from './lite.js';
+import { CanvasMusicVis } from './canvasMusicVis.js';
 
 keydown('h',()=>{
     document.body.classList.toggle('hide')

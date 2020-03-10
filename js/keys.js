@@ -32,4 +32,12 @@ function keydown(key,func){
     }
 }
 
-export {keydown,map};
+function ingoreDefaultBehaviorOfKeys(keys){
+    document.onkeydown = function(e){
+        for(let i = keys.length - 1; i >= 0; i--){
+            if(keys[i] === e.key) return false;
+        }
+    }
+}
+
+export {keydown,map,ingoreDefaultBehaviorOfKeys};
