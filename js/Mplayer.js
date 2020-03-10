@@ -1,5 +1,4 @@
 import {map,removeExtention} from './prototypes.js';
-const playButton = document.getElementById('play_btn');
 class Mplayer{
     constructor(sliderCon){
         const root = this;
@@ -65,7 +64,6 @@ class Mplayer{
             this.m.currentTime = 0;
             this.updateSrc();
             this.m.play();
-            playButton.innerText = 'stop';
         } else {
             this.m.pause();
             this.m.src = '';
@@ -94,8 +92,7 @@ class Mplayer{
     }
 
     widthCalc(){
-        let calcCss = getComputedStyle(this.dur.parentElement);
-        this.width = parseInt(calcCss.width);
+        this.width = parseInt(getComputedStyle(this.dur.parentElement).width);
     }
     
     shuffle(){
