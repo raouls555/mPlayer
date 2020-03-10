@@ -1,14 +1,14 @@
-import {setAttributes,map,removeExtention} from './prototypes.js';
-const playButton = document.getElementById("play_btn");
+import {map,removeExtention} from './prototypes.js';
+const playButton = document.getElementById('play_btn');
 class Mplayer{
     constructor(sliderCon){
         const root = this;
 
         //creates and appends custom slider
-        let durCon = document.createElement("div");
-        durCon.id = "slider";
-        this.dur = document.createElement("div");
-        this.dur.id = "dur";
+        let durCon = document.createElement('div');
+        durCon.id = 'slider';
+        this.dur = document.createElement('div');
+        this.dur.id = 'dur';
         durCon.appendChild(this.dur);
         sliderCon.appendChild(durCon);
         this.dur.parentElement.onmousedown = function(e){
@@ -20,19 +20,20 @@ class Mplayer{
 
         this.files = [];
         this.current = 0;
-        this.playlistEL = document.getElementById("pItems");
+        this.playlistEL = document.getElementById('pItems');
 
-        this.m = new Audio("");
+        this.m = new Audio('');
         this.m.onended = () => this.currentFile++;
 
-        this.fileSelector = document.createElement("input");
-        setAttributes(this.fileSelector,{"type":"file","multiple":""});
+        this.fileSelector = document.createElement('input');
+        this.fileSelector.setAttribute('type','file');
+        this.fileSelector.setAttribute('multiple','');
         this.fileSelector.onchange = function(e) {
             for(let i = 0;i < this.files.length;i++){
-                const element = document.createElement("div");
+                const element = document.createElement('div');
                 
                 element.innerText = removeExtention(this.files[i].name);
-                element.classList.add("pItem");
+                element.classList.add('pItem');
                 element.onclick = function(){
                     root.currentFile = this.fileNumb;
                 }
@@ -41,13 +42,13 @@ class Mplayer{
                     return false;
                 }
                 root.playlistEL.appendChild(element);
-                root.files.push({"file":this.files[i],"element": element});
+                root.files.push({'file':this.files[i],'element': element});
                 element.fileNumb = root.files.length - 1;
             }
             //handles first time of loading files in
             if(root.m.src == window.location){
                 root.updateSrc();
-                root.files[root.current].element.classList.add("selected");
+                root.files[root.current].element.classList.add('selected');
                 root.m.play();
             }
         }
@@ -55,16 +56,16 @@ class Mplayer{
 
     set currentFile(v){
         if(this.files.length !== 0){
-            if(this.files[this.current]) this.files[this.current].element.classList.remove("selected");
+            if(this.files[this.current]) this.files[this.current].element.classList.remove('selected');
             this.current = v;
             if(this.current >= this.files.length) this.current = 0;
             if(this.current < 0) this.current = this.files.length - 1;
-            this.files[this.current].element.classList.add("selected");
+            this.files[this.current].element.classList.add('selected');
             this.m.pause();
             this.m.currentTime = 0;
             this.updateSrc();
             this.m.play();
-            playButton.innerText = "stop";
+            playButton.innerText = 'stop';
         } else {
             this.m.pause();
             this.m.src = '';
@@ -88,7 +89,7 @@ class Mplayer{
     }
 
     draw(){
-        this.dur.style.width = map(this.m.currentTime,0,this.m.duration,0,this.width) + "px";
+        this.dur.style.width = map(this.m.currentTime,0,this.m.duration,0,this.width) + 'px';
         requestAnimationFrame(this.draw.bind(this));
     }
 
@@ -99,7 +100,7 @@ class Mplayer{
     
     shuffle(){
         const newFileList = [];
-        this.playlistEL.innerHTML = "";
+        this.playlistEL.innerHTML = '';
         newFileList.push(this.files[this.current]);
         this.files[this.current].element.fileNumb = this.current;
         this.playlistEL.appendChild(this.files[this.current].element);
