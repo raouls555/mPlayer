@@ -1,6 +1,6 @@
 import {Mplayer} from './Mplayer.js';
 import {addButtonInput} from './inputs.js';
-import { keydown } from './keys.js';
+import { keydown,ingoreDefaultBehaviorOfKeys } from './keys.js';
 
 const currentSong = document.getElementById("currentSong");
 
@@ -20,6 +20,7 @@ const music = new Mplayer(document.getElementById("sliderCon"),document.getEleme
 window.onresize = function() {
     music.widthCalc();
 };
+ingoreDefaultBehaviorOfKeys([' '])
 keydown(' ',()=>playClick(playButton));
 keydown('ArrowRight',()=>music.currentFile++);
 keydown('ArrowLeft',()=>music.currentFile--);
