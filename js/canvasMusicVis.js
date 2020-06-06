@@ -1,4 +1,4 @@
-import {Ball} from './ball/ball.js';
+import {Ball} from './ball/Ball.js';
 import {map} from './prototypes.js';
 
 class CanvasMusicVis {
