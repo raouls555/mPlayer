@@ -1,2 +1,3 @@
 # Prerequisites
 dist/*.js
+node_modules
